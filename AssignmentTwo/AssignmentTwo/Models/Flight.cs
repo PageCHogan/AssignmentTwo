@@ -8,8 +8,8 @@ namespace AssignmentTwo.Models
     public class Flight
     {
 		public int FlightID { get; set; }
-		public string Departure { get; set; }
-		public string Destination { get; set; }
+		public Airports Departure { get; set; }
+		public Airports Destination { get; set; }
 		public DateTime DepartureDate { get; set; }
 		public int FlightCapacity { get; set; }
 		public int SeatsAvailable { get; set; }
@@ -17,8 +17,8 @@ namespace AssignmentTwo.Models
 		public Flight()
 		{
 			FlightID = 0;
-			Departure = "";
-			Destination = "";
+			Departure = new Airports();
+			Destination = new Airports();
 			DepartureDate = DateTime.MinValue;
 			FlightCapacity = 0;
 			SeatsAvailable = 0;
