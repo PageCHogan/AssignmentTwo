@@ -17,8 +17,8 @@ namespace AssignmentTwo.Models
 		public Flight()
 		{
 			FlightID = 0;
-			Departure = new Airports();
-			Destination = new Airports();
+			Departure = null;
+			Destination = null;
 			DepartureDate = DateTime.MinValue;
 			FlightCapacity = 0;
 			SeatsAvailable = 0;
