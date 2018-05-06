@@ -15,5 +15,6 @@ namespace AssignmentTwo.Models
 
 		public DbSet<AssignmentTwo.Models.Flight> Flight { get; set; }
 		public DbSet<AssignmentTwo.Models.Airports> Airports { get; set; }
+		public DbSet<AssignmentTwo.Models.Contact.Contact> Contact { get; set; }
 	}
 }
