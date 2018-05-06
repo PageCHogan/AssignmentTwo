@@ -1,17 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Contact";
+﻿@model AssignmentTwo.Models.Contact.Contact
+@{
+    ViewData["Title"] = "Contact Us!";
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+{
+    @Html.ValidationSummary(true);
+
+    @Html.Label("Name")
+    <br />
+    @Html.TextBoxFor(m => m.Name, new { style = "width:300px" })
+    <br />
+    <br />
+    @Html.Label("Email Address")
+    <br />
+    @Html.TextBoxFor(m => m.Email, new { style = "width:300px" })
+    <br />
+    <br />
+    @Html.Label("Message")
+    <br />
+    @Html.TextAreaFor(m => m.Message, new { style = "width:300px; height:125px; max-width:50%; maxlength='200'" })
+    <br />
+    <input type="submit" value="Submit" />
+}
+
+<br />
 <address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
+    Generic Street Address<br />
+    Brisbane, QLD, 4000<br />
     <abbr title="Phone">P:</abbr>
-    425.555.0100
+    1234 567 890
 </address>
 
 <address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@domain.com.au</a><br />
 </address>

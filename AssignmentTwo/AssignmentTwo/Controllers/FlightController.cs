@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AssignmentTwo.Models;
+using AssignmentTwo.Services;
 
 namespace AssignmentTwo.Controllers
 {
     public class FlightController : Controller
     {
+		private FlightService flightService = new FlightService();
         private readonly AroundTheWorldContext _context;
 
         public FlightController(AroundTheWorldContext context)
@@ -48,7 +50,12 @@ namespace AssignmentTwo.Controllers
         // GET: Flight/Create
         public IActionResult Create()
         {
-            return View();
+			using (AroundTheWorldContext atw = _context)
+			{
+				var airportsViewDataDB = new SelectList(atw.Airports.ToList(), "AirportID", "AirportLocation");
+				ViewData["AirportLocations"] = airportsViewDataDB;
+			}
+				return View();
         }
 
         // POST: Flight/Create
@@ -56,11 +63,15 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightID,DepartureDate,FlightCapacity,SeatsAvailable")] Flight flight)
+        public async Task<IActionResult> Create([Bind("FlightID,Departure,Destination,DepartureDate,FlightCapacity,SeatsAvailable")] Flight flight)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(flight);
+				flight.Departure = _context.Airports.Find(flight.Departure.AirportID);
+				flight.Destination = _context.Airports.Find(flight.Destination.AirportID);
+
+				//flight.Departure = flightService.LookupAirport(flight.Departure.AirportID);
+				_context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
