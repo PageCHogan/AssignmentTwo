@@ -37,9 +37,12 @@ namespace AssignmentTwo.Controllers
                 return NotFound();
             }
 
-            var flight = await _context.Flight
+			List<Airports> airports = await _context.Airports.ToListAsync();
+
+			var flight = await _context.Flight
                 .SingleOrDefaultAsync(m => m.FlightID == id);
-            if (flight == null)
+
+			if (flight == null)
             {
                 return NotFound();
             }
@@ -70,7 +73,6 @@ namespace AssignmentTwo.Controllers
 				flight.Departure = _context.Airports.Find(flight.Departure.AirportID);
 				flight.Destination = _context.Airports.Find(flight.Destination.AirportID);
 
-				//flight.Departure = flightService.LookupAirport(flight.Departure.AirportID);
 				_context.Add(flight);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -78,15 +80,18 @@ namespace AssignmentTwo.Controllers
             return View(flight);
         }
 
-        // GET: Flight/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+		//TODO: Edit not part of specs. Remove if cannot neatly change flight departure / destination location.
+		// GET: Flight/Edit/5
+		public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var flight = await _context.Flight.SingleOrDefaultAsync(m => m.FlightID == id);
+			List<Airports> airports = await _context.Airports.ToListAsync();
+
+			var flight = await _context.Flight.SingleOrDefaultAsync(m => m.FlightID == id);
             if (flight == null)
             {
                 return NotFound();
@@ -94,6 +99,7 @@ namespace AssignmentTwo.Controllers
             return View(flight);
         }
 
+		//TODO: Edit not part of specs. Remove if cannot neatly change flight departure / destination location.
         // POST: Flight/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
