@@ -13,6 +13,7 @@ namespace AssignmentTwo.Models
 		public DateTime DepartureDate { get; set; }
 		public int FlightCapacity { get; set; }
 		public int SeatsAvailable { get; set; }
+		public decimal Price { get; set; }
 
 		public Flight()
 		{
@@ -22,6 +23,7 @@ namespace AssignmentTwo.Models
 			DepartureDate = DateTime.MinValue;
 			FlightCapacity = 0;
 			SeatsAvailable = 0;
+			Price = 0;
 		}
 	}
 }

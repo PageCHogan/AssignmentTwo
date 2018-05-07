@@ -66,7 +66,7 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightID,Departure,Destination,DepartureDate,FlightCapacity,SeatsAvailable")] Flight flight)
+        public async Task<IActionResult> Create([Bind("FlightID,Departure,Destination,DepartureDate,FlightCapacity,SeatsAvailable,Price")] Flight flight)
         {
             if (ModelState.IsValid)
             {
