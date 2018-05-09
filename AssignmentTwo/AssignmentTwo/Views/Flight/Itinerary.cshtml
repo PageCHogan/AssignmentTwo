@@ -1,15 +1,21 @@
 ﻿@model AssignmentTwo.Models.Flight
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Itinerary";
 }
 
-<h2>Details</h2>
+<h2>Itinerary</h2>
 
 <div>
-    <h4>Flight</h4>
+    <h4>Flight Itinerary</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightID)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Departure)
         </dt>
@@ -28,12 +34,14 @@
         <dd>
             @Html.DisplayFor(model => model.DepartureDate)
         </dd>
-        <dt>
+
+        @*<dt>
             @Html.DisplayNameFor(model => model.FlightCapacity)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.FlightCapacity)
-        </dd>
+        </dd>*@
+
         <dt>
             @Html.DisplayNameFor(model => model.SeatsAvailable)
         </dt>
@@ -41,7 +49,7 @@
             @Html.DisplayFor(model => model.SeatsAvailable)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            Flight @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd>
             $@Html.DisplayFor(model => model.Price)
@@ -49,6 +57,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.FlightID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="SearchResults">Back to List</a>
 </div>

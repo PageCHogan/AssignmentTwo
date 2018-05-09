@@ -13,22 +13,22 @@
     <!--Tester Slider window-->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="~/images/1.boat people.png" alt="Visual Studio" class="img-responsive" />
+            <img src="~/images/Plane1.jpg" alt="Visual Studio" class="img-responsive" />
             <div class="carousel-caption" role="option"></div>
         </div>
 
         <div class="item">
-            <img src="~/images/2.dino.png" alt="Visual Studio" class="img-responsive" />
+            <img src="~/images/Plane2.jpg" alt="Visual Studio" class="img-responsive" />
             <div class="carousel-caption" role="option">
             </div>
         </div>
         <div class="item">
-            <img src="~/images/3.Draw Free! Picture.png" alt="Visual Studio" class="img-responsive" />
+            <img src="~/images/Plane3.jpg" alt="Visual Studio" class="img-responsive" />
             <div class="carousel-caption" role="option">
             </div>
         </div>
         <div class="item">
-            <img src="~/images/4.duckfish.png" alt="Visual Studio" class="img-responsive" />
+            <img src="~/images/plane4.jpg" alt="Visual Studio" class="img-responsive" />
             <div class="carousel-caption" role="option">
             </div>
         </div>
@@ -120,23 +120,13 @@
         </ul>
     </div>
     <div class="col-md-3">
-        <h2>TODO: Remove Filler</h2>
+        <h2>Make a Booking!</h2>
         <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
+            <a asp-area="" asp-controller="Bookings" asp-action="Index" class="btn btn-default" >Book a Flight !!</a>
+</ul>
     </div>
     <div class="col-md-3">
-        <h2>TODO: Remove Filler</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
+        <h2>Search for a flight</h2>
+        @Html.Partial("~/Views/Shared/_FlightSearchView.cshtml")
     </div>
 </div>

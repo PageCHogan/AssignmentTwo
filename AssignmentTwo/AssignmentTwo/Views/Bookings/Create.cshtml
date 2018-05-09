@@ -1,0 +1,60 @@
+﻿@model AssignmentTwo.Models.Bookings
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Bookings</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AdditionalLuggage" /> @Html.DisplayNameFor(model => model.AdditionalLuggage)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrimaryFlight.FlightID" class="control-label"></label>
+                <input asp-for="PrimaryFlight.FlightID" class="form-control" />
+                <span asp-validation-for="PrimaryFlight.FlightID" class="text-danger"></span>
+            </div>
+            @if (Model.Return == true)
+            {
+                <div class="form-group">
+                    <label asp-for="ReturnFlight.FlightID" class="control-label"></label>
+                    <input asp-for="ReturnFlight.FlightID" class="form-control" />
+                    <span asp-validation-for="ReturnFlight.FlightID" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Passengers" class="control-label"></label>
+                <input asp-for="Passengers" class="form-control" />
+                <span asp-validation-for="Passengers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox" id="ReturnFlightBool">
+                    <label>
+                        <input asp-for="Return" /> @Html.DisplayNameFor(model => model.Return)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

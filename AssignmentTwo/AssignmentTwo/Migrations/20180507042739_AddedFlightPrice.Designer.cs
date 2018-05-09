@@ -11,9 +11,10 @@ using System;
 namespace AssignmentTwo.Migrations
 {
     [DbContext(typeof(AroundTheWorldContext))]
-    partial class AroundTheWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20180507042739_AddedFlightPrice")]
+    partial class AddedFlightPrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

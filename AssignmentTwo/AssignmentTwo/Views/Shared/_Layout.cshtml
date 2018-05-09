@@ -34,6 +34,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Flight" asp-action="Index">Flights</a></li>
+                    <li><a asp-area="" asp-controller="Bookings" asp-action="Index">Make Booking</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -42,9 +43,10 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - AssignmentTwo</p>
-        </footer>
+        <!-- TODO: REMOVE FOOTER OR USE IT - INTERFERRING WITH ABOUT PAGE
+    <footer>
+        <p>&copy; 2018 - AssignmentTwo</p>
+    </footer>-->
     </div>
 
     <environment include="Development">
