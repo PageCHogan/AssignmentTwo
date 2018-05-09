@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AssignmentTwo.Models.Flight>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results for Scheduled Flights</h2>
+
+<!--<p><a asp-action="Create">Create New Flight</a></p> link not needed yet...-->
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatsAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                Itinerary
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure.AirportLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination.AirportLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatsAvailable)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Itinerary" asp-route-id="@item.FlightID">Itinerary</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

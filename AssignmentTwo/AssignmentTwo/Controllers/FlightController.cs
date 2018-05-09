@@ -29,8 +29,39 @@ namespace AssignmentTwo.Controllers
 			return View(flights);
 		}
 
-        // GET: Flight/Details/5
-        public async Task<IActionResult> Details(int? id)
+		// GET: Flight/SearchResults
+		public async Task<IActionResult> SearchResults()
+		{
+			List<Airports> airports = await _context.Airports.ToListAsync();
+			List<Flight> flights = await _context.Flight.ToListAsync();
+
+			return View(flights);
+		}
+
+
+		// GET: Flight/Itinerary/5
+		public async Task<IActionResult> Itinerary(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			List<Airports> airports = await _context.Airports.ToListAsync();
+
+			var flight = await _context.Flight
+				.SingleOrDefaultAsync(m => m.FlightID == id);
+
+			if (flight == null)
+			{
+				return NotFound();
+			}
+
+			return View(flight);
+		}
+
+		// GET: Flight/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
