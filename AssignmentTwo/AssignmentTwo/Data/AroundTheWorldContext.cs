@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using AssignmentTwo.Models;
 
 namespace AssignmentTwo.Models
 {
@@ -16,5 +17,6 @@ namespace AssignmentTwo.Models
 		public DbSet<AssignmentTwo.Models.Flight> Flight { get; set; }
 		public DbSet<AssignmentTwo.Models.Airports> Airports { get; set; }
 		public DbSet<AssignmentTwo.Models.Contact.Contact> Contact { get; set; }
+		public DbSet<AssignmentTwo.Models.Bookings> Bookings { get; set; }
 	}
 }

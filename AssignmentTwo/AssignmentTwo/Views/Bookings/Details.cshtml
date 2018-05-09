@@ -1,0 +1,42 @@
+﻿@model AssignmentTwo.Models.Bookings
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bookings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalLuggage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalLuggage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Passengers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Passengers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Return)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Return)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BookingID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

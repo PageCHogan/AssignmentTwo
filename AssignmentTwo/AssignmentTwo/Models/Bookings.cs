@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace AssignmentTwo.Models
 {
     public class Bookings
     {
+		[Key]
 		public int BookingID { get; set; }
 		public Flight PrimaryFlight { get; set; }
 		public Flight ReturnFlight { get; set; }
