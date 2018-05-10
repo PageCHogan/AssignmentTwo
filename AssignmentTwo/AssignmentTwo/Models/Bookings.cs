@@ -16,7 +16,8 @@ namespace AssignmentTwo.Models
 		public Decimal Price { get; set; }
 		public int Passengers { get; set; }
 		public TicketClass TicketClass { get; set; }
-		public bool Return { get; set; }
+		public bool ReturnTrip { get; set; }
+		public int PassportNumber { get; set; }
 
 		public Bookings()
 		{
@@ -27,7 +28,8 @@ namespace AssignmentTwo.Models
 			Price = 0;
 			Passengers = 0;
 			TicketClass = new TicketClass();
-			Return = false;
+			ReturnTrip = false;
+			PassportNumber = 0;
 		}
 	}
 }

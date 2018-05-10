@@ -36,11 +36,11 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.FlightCapacity)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FlightCapacity)
-        </dd>*@
+                @Html.DisplayNameFor(model => model.FlightCapacity)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FlightCapacity)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.SeatsAvailable)
@@ -55,7 +55,9 @@
             $@Html.DisplayFor(model => model.Price)
         </dd>
     </dl>
+    <!--TODO: Point 4 on Task Sheet Remove comment if functionality not added-->
+    <h2>Option to book a ticket!!! Point 4 on Task Sheet</h2>
 </div>
 <div>
-    <a asp-action="SearchResults">Back to List</a>
+    <a asp-action="SearchResults">Back to Search Results</a>
 </div>
