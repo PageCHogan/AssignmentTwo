@@ -13,6 +13,12 @@
     <thead>
         <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.PassengersName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.AdditionalLuggage)
                 </th>
                 <th>
@@ -33,6 +39,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassengersName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AdditionalLuggage)
             </td>

@@ -41,7 +41,11 @@ namespace AssignmentTwo.Migrations
 
                     b.Property<bool>("AdditionalLuggage");
 
+                    b.Property<string>("EmailAddress");
+
                     b.Property<int>("Passengers");
+
+                    b.Property<string>("PassengersName");
 
                     b.Property<int>("PassportNumber");
 

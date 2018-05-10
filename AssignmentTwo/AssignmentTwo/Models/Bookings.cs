@@ -10,6 +10,8 @@ namespace AssignmentTwo.Models
     {
 		[Key]
 		public int BookingID { get; set; }
+		public string PassengersName { get; set; }
+		public string EmailAddress { get; set; }
 		public Flight PrimaryFlight { get; set; }
 		public Flight ReturnFlight { get; set; }
 		public bool AdditionalLuggage { get; set; }
@@ -22,6 +24,8 @@ namespace AssignmentTwo.Models
 		public Bookings()
 		{
 			BookingID = 0;
+			PassengersName = "";
+			EmailAddress = "";
 			PrimaryFlight = new Flight();
 			ReturnFlight = new Flight();
 			AdditionalLuggage = false;

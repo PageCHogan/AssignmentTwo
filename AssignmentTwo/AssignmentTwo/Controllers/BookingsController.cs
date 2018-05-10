@@ -45,7 +45,12 @@ namespace AssignmentTwo.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            return View();
+			using (AroundTheWorldContext atw = _context)
+			{
+				var airportsViewDataDB = new SelectList(atw.Airports.ToList(), "AirportID", "AirportLocation");
+				ViewData["AirportLocations"] = airportsViewDataDB;
+			}
+			return View();
         }
 
         // POST: Bookings/Create
@@ -53,11 +58,14 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
+        public async Task<IActionResult> Create([Bind("BookingID,,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
-            if (ModelState.IsValid)
+			if (ModelState.IsValid)
             {
-                _context.Add(bookings);
+				bookings.PrimaryFlight.Departure = _context.Airports.Find(bookings.PrimaryFlight.Departure.AirportID);
+				bookings.PrimaryFlight.Destination = _context.Airports.Find(bookings.PrimaryFlight.Destination.AirportID);
+
+				_context.Add(bookings);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -85,7 +93,7 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingID,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingID,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
             if (id != bookings.BookingID)
             {

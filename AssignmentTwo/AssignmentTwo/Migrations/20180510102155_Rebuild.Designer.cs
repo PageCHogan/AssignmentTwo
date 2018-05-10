@@ -11,8 +11,8 @@ using System;
 namespace AssignmentTwo.Migrations
 {
     [DbContext(typeof(AroundTheWorldContext))]
-    [Migration("20180510094633_AdditionalFieldsForBookings")]
-    partial class AdditionalFieldsForBookings
+    [Migration("20180510102155_Rebuild")]
+    partial class Rebuild
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,11 @@ namespace AssignmentTwo.Migrations
 
                     b.Property<bool>("AdditionalLuggage");
 
+                    b.Property<string>("EmailAddress");
+
                     b.Property<int>("Passengers");
+
+                    b.Property<string>("PassengersName");
 
                     b.Property<int>("PassportNumber");
 
