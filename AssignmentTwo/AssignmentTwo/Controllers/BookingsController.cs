@@ -53,7 +53,7 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,AdditionalLuggage,Price,Passengers,Return")] Bookings bookings)
+        public async Task<IActionResult> Create([Bind("BookingID,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingID,AdditionalLuggage,Price,Passengers,Return")] Bookings bookings)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingID,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
             if (id != bookings.BookingID)
             {
