@@ -8,28 +8,32 @@
 
 <h4>Bookings</h4>
 <hr />
+@if (ViewBag.errormessage != null)
+{
+    <span class="label label-danger">Danger</span>
+    @ViewBag.errormessage;
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!--TODO: Input Airport departure / destination for booking form.........Currently creating additional flight records.-->
             <div class="form-group">
                 <label asp-for="PrimaryFlight" class="control-label">Departing flight ID</label>
-                @Html.DropDownListFor(m => m.PrimaryFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], null)
+                @Html.DropDownListFor(m => m.PrimaryFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], "")
                 <span asp-validation-for="PrimaryFlight" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="ReturnTrip" /> @Html.DisplayNameFor(model => model.ReturnTrip)
+                        <input asp-for="ReturnTrip" id="returnSelection" onclick="Checked()" /> @Html.DisplayNameFor(model => model.ReturnTrip)
                     </label>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="returnFlight">
                 <label asp-for="PrimaryFlight" class="control-label">Return</label>
-                @Html.DropDownListFor(m => m.ReturnFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], null)
-    <span asp-validation-for="ReturnFlight" class="text-danger"></span>
-</div>
+                @Html.DropDownListFor(m => m.ReturnFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], "")
+                <span asp-validation-for="ReturnFlight" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="PassengersName" class="control-label"></label>
                 <input asp-for="PassengersName" class="form-control" />
@@ -43,14 +47,9 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="AdditionalLuggage" /> @Html.DisplayNameFor(model => model.AdditionalLuggage)
+                        <input asp-for="AdditionalLuggage" />@Html.DisplayNameFor(model => model.AdditionalLuggage) ( + $15 per Passenger )
                     </label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Passengers" class="control-label"></label>
@@ -73,3 +72,15 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    function Checked() {
+        $('#returnSelection').click(function () {
+            if ($('#returnSelection').is('input:checked')) {
+                $('#returnFlight').css('display', 'block');
+            } else {
+                $('#returnFlight').css('display', 'none');
+            }
+        });
+    };
+
+</script>

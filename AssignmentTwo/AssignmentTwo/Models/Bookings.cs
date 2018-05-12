@@ -20,9 +20,7 @@ namespace AssignmentTwo.Models
 		public TicketClass TicketClass { get; set; }
 		public bool ReturnTrip { get; set; }
 		public int PassportNumber { get; set; }
-		//public int PrimaryFlightFlightID { get; set; }
-		//public int ReturnFlightFlightID { get; set; }
-		//public int TicketClassID { get; set; }
+		public string UserID { get; set; }
 
 		public Bookings()
 		{
@@ -37,9 +35,7 @@ namespace AssignmentTwo.Models
 			TicketClass = new TicketClass();
 			ReturnTrip = false;
 			PassportNumber = 0;
-			//PrimaryFlightFlightID = 0;
-			//ReturnFlightFlightID = 0;
-			//TicketClassID = 0;
+			UserID = null;
 		}
 	}
 }

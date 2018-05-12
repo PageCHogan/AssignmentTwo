@@ -14,8 +14,6 @@ namespace AssignmentTwo.Models
 		public int FlightCapacity { get; set; }
 		public int SeatsAvailable { get; set; }
 		public decimal Price { get; set; }
-		//public int DepartureAirportID { get; set; }
-		//public int DestinationAirportID { get; set; }
 
 		public Flight()
 		{
@@ -26,8 +24,6 @@ namespace AssignmentTwo.Models
 			FlightCapacity = 0;
 			SeatsAvailable = 0;
 			Price = 0;
-			//DepartureAirportID = 0;
-			//DestinationAirportID = 0;
 		}
 	}
 }
