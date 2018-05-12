@@ -14,15 +14,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <!--TODO: Input Airport departure / destination for booking form.........Currently creating additional flight records.-->
             <div class="form-group">
-                <label asp-for="PrimaryFlight" class="control-label"> Departing</label>
-                @Html.DropDownListFor(m => m.PrimaryFlight.Departure.AirportID, (IEnumerable<SelectListItem>)ViewData["AirportLocations"])
+                <label asp-for="PrimaryFlight" class="control-label">Departing flight ID</label>
+                @Html.DropDownListFor(m => m.PrimaryFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], null)
                 <span asp-validation-for="PrimaryFlight" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrimaryFlight" class="control-label">Destination</label>
-                @Html.DropDownListFor(m => m.PrimaryFlight.Destination.AirportID, (IEnumerable<SelectListItem>)ViewData["AirportLocations"])
-                <span asp-validation-for="PrimaryFlight" class="text-danger"></span>
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="ReturnTrip" /> @Html.DisplayNameFor(model => model.ReturnTrip)
+                    </label>
+                </div>
             </div>
+            <div class="form-group">
+                <label asp-for="PrimaryFlight" class="control-label">Return</label>
+                @Html.DropDownListFor(m => m.ReturnFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], null)
+    <span asp-validation-for="ReturnFlight" class="text-danger"></span>
+</div>
             <div class="form-group">
                 <label asp-for="PassengersName" class="control-label"></label>
                 <input asp-for="PassengersName" class="form-control" />
@@ -49,13 +56,6 @@
                 <label asp-for="Passengers" class="control-label"></label>
                 <input asp-for="Passengers" class="form-control" />
                 <span asp-validation-for="Passengers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="ReturnTrip" /> @Html.DisplayNameFor(model => model.ReturnTrip)
-                    </label>
-                </div>
             </div>
             <div class="form-group">
                 <label asp-for="PassportNumber" class="control-label"></label>

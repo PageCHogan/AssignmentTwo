@@ -49,6 +49,9 @@ namespace AssignmentTwo.Controllers
 			{
 				var airportsViewDataDB = new SelectList(atw.Airports.ToList(), "AirportID", "AirportLocation");
 				ViewData["AirportLocations"] = airportsViewDataDB;
+
+				var flightsViewDataDB = new SelectList(atw.Flight.ToList(), "FlightID", "FlightID");
+				ViewData["AvailableFlights"] = flightsViewDataDB;
 			}
 			return View();
         }
@@ -58,12 +61,22 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
+        public async Task<IActionResult> Create([Bind("BookingID,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
 			if (ModelState.IsValid)
             {
-				bookings.PrimaryFlight.Departure = _context.Airports.Find(bookings.PrimaryFlight.Departure.AirportID);
-				bookings.PrimaryFlight.Destination = _context.Airports.Find(bookings.PrimaryFlight.Destination.AirportID);
+				List<Airports> airports = await _context.Airports.ToListAsync();
+				List<Flight> flights = await _context.Flight.ToListAsync();
+
+				if (bookings.ReturnTrip && bookings.ReturnFlight.FlightID > 0)
+					bookings.ReturnFlight = _context.Flight.Find(bookings.ReturnFlight.FlightID);
+
+				if(bookings.PrimaryFlight.FlightID > 0)
+				{
+					bookings.PrimaryFlight = _context.Flight.Find(bookings.PrimaryFlight.FlightID);
+					//bookings.PrimaryFlight.Departure = _context.Airports.Find(bookings.PrimaryFlight.DepartureAirportID);
+					//bookings.PrimaryFlight.Destination = _context.Airports.Find(bookings.PrimaryFlight.DestinationAirportID);
+				}
 
 				_context.Add(bookings);
                 await _context.SaveChangesAsync();
