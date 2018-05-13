@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AssignmentTwo.Models;
+using System.Collections;
+using Microsoft.AspNetCore.Identity;
 
 namespace AssignmentTwo.Controllers
 {
@@ -21,11 +23,18 @@ namespace AssignmentTwo.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Bookings.ToListAsync());
-        }
+			string loggedUser = User.Identity.Name;
 
-        // GET: Bookings/Details/5
-        public async Task<IActionResult> Details(int? id)
+			var userBookings = await _context.Bookings.Where(o => o.UserID == loggedUser).ToListAsync();
+
+			if (loggedUser != null && userBookings.Count > 0)
+				return View(userBookings);
+			else
+				return RedirectToAction(nameof(Create));
+		}
+
+		// GET: Bookings/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -45,7 +54,26 @@ namespace AssignmentTwo.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            return View();
+			//Dictionary<string, string> flightDetails = new Dictionary<string, string>();
+			//List<Flight> flights = _context.Flight.ToList();
+
+			
+				var airportsViewDataDB = new SelectList(_context.Airports.ToList(), "AirportID", "AirportLocation");
+				ViewData["AirportLocations"] = airportsViewDataDB;
+				
+				//foreach(Flight flight in flights)
+				//{
+				//	flightDetails.Add(flight.FlightID.ToString(), flight.Departure.AirportLocation + " to " + flight.Destination.AirportLocation);
+				//}
+				//SelectList SelectList = new SelectList((IEnumerable)flightDetails, "Key", "Value");
+				//var flightsViewDataDB = new SelectList(flightDetails, "FlightID", "FlightID");
+				//var flightsViewDataDB = new SelectList(flightDetails.ToList());
+
+				//var flightsViewDataDB = new SelectList((IEnumerable)flightDetails, flightDetails.Keys.ToString(), flightDetails.Values.ToString());
+				//ViewData["AvailableFlights"] = flightsViewDataDB.Items;
+
+				var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
+				ViewData["AvailableFlights"] = flightsViewDataDB;			return View();
         }
 
         // POST: Bookings/Create
@@ -53,15 +81,41 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,AdditionalLuggage,Price,Passengers,Return")] Bookings bookings)
+        public async Task<IActionResult> Create([Bind("BookingID,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
-            if (ModelState.IsValid)
+			var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
+			ViewData["AvailableFlights"] = flightsViewDataDB;
+
+			var airportsViewDataDB = new SelectList(_context.Airports.ToList(), "AirportID", "AirportLocation");
+			ViewData["AirportLocations"] = airportsViewDataDB;
+
+
+			if (ModelState.IsValid)
             {
-                _context.Add(bookings);
+				List<Airports> airports = await _context.Airports.ToListAsync();
+				List<Flight> flights = await _context.Flight.ToListAsync();
+
+				if(bookings.PrimaryFlight.FlightID > 0)
+					bookings.PrimaryFlight = _context.Flight.Find(bookings.PrimaryFlight.FlightID);
+
+				if (bookings.ReturnTrip && bookings.ReturnFlight.FlightID > 0)
+					bookings.ReturnFlight = _context.Flight.Find(bookings.ReturnFlight.FlightID);
+				else
+					bookings.ReturnFlight.FlightID = 0;
+
+				bookings.Price = (bookings.PrimaryFlight.Price + bookings.ReturnFlight.Price) * bookings.Passengers;
+
+				if (bookings.AdditionalLuggage)
+					bookings.Price += (15 * bookings.Passengers);
+
+				bookings.UserID = User.Identity.Name.ToString();
+
+				_context.Add(bookings);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(bookings);
+			//ViewBag.errormessage = "no bueno";
+			return View(bookings);
         }
 
         // GET: Bookings/Edit/5
@@ -85,7 +139,7 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingID,AdditionalLuggage,Price,Passengers,Return")] Bookings bookings)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingID,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
         {
             if (id != bookings.BookingID)
             {

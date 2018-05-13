@@ -7,11 +7,17 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Make a new Booking</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassengersName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AdditionalLuggage)
                 </th>
@@ -22,7 +28,10 @@
                     @Html.DisplayNameFor(model => model.Passengers)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Return)
+                    @Html.DisplayNameFor(model => model.ReturnTrip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassportNumber)
                 </th>
             <th></th>
         </tr>
@@ -30,6 +39,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassengersName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AdditionalLuggage)
             </td>
@@ -40,7 +55,10 @@
                 @Html.DisplayFor(modelItem => item.Passengers)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Return)
+                @Html.DisplayFor(modelItem => item.ReturnTrip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportNumber)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |

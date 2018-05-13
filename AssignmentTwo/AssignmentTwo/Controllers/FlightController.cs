@@ -189,7 +189,19 @@ namespace AssignmentTwo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var flight = await _context.Flight.SingleOrDefaultAsync(m => m.FlightID == id);
+			List<Airports> airports = await _context.Airports.ToListAsync();
+			List<Flight> flights = await _context.Flight.ToListAsync();
+			List<Bookings> bookings = await _context.Bookings.ToListAsync();
+
+			var book = _context.Bookings.Where(b => b.PrimaryFlight.FlightID == id).ToList();
+			if(book.Count > 0)
+				book = _context.Bookings.Where(b => b.ReturnFlight.FlightID == id).ToList();
+			if(book.Count > 0)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+
+			var flight = await _context.Flight.SingleOrDefaultAsync(m => m.FlightID == id);
             _context.Flight.Remove(flight);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

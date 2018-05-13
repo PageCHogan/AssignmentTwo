@@ -8,41 +8,58 @@
 
 <h4>Bookings</h4>
 <hr />
+@if (ViewBag.errormessage != null)
+{
+    <span class="label label-danger">Danger</span>
+    @ViewBag.errormessage;
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="PrimaryFlight" class="control-label">Departing flight ID</label>
+                @Html.DropDownListFor(m => m.PrimaryFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], "")
+                <span asp-validation-for="PrimaryFlight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="AdditionalLuggage" /> @Html.DisplayNameFor(model => model.AdditionalLuggage)
+                        <input asp-for="ReturnTrip" id="returnSelection" onclick="Checked()" /> @Html.DisplayNameFor(model => model.ReturnTrip)
                     </label>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PrimaryFlight.FlightID" class="control-label"></label>
-                <input asp-for="PrimaryFlight.FlightID" class="form-control" />
-                <span asp-validation-for="PrimaryFlight.FlightID" class="text-danger"></span>
+            <div class="form-group" id="returnFlight">
+                <label asp-for="PrimaryFlight" class="control-label">Return</label>
+                @Html.DropDownListFor(m => m.ReturnFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], "")
+                <span asp-validation-for="ReturnFlight" class="text-danger"></span>
             </div>
-            @if (Model.Return == true)
-            {
-                <div class="form-group">
-                    <label asp-for="ReturnFlight.FlightID" class="control-label"></label>
-                    <input asp-for="ReturnFlight.FlightID" class="form-control" />
-                    <span asp-validation-for="ReturnFlight.FlightID" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="PassengersName" class="control-label"></label>
+                <input asp-for="PassengersName" class="form-control" />
+                <span asp-validation-for="PassengersName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="AdditionalLuggage" />@Html.DisplayNameFor(model => model.AdditionalLuggage) ( + $15 per Passenger )
+                    </label>
                 </div>
-            }
+            </div>
             <div class="form-group">
                 <label asp-for="Passengers" class="control-label"></label>
                 <input asp-for="Passengers" class="form-control" />
                 <span asp-validation-for="Passengers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="checkbox" id="ReturnFlightBool">
-                    <label>
-                        <input asp-for="Return" /> @Html.DisplayNameFor(model => model.Return)
-                    </label>
-                </div>
+                <label asp-for="PassportNumber" class="control-label"></label>
+                <input asp-for="PassportNumber" class="form-control" />
+                <span asp-validation-for="PassportNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -55,6 +72,15 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<script>
+    function Checked() {
+        $('#returnSelection').click(function () {
+            if ($('#returnSelection').is('input:checked')) {
+                $('#returnFlight').css('display', 'block');
+            } else {
+                $('#returnFlight').css('display', 'none');
+            }
+        });
+    };
+
+</script>

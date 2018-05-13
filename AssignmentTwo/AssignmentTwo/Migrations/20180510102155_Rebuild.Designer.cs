@@ -11,9 +11,10 @@ using System;
 namespace AssignmentTwo.Migrations
 {
     [DbContext(typeof(AroundTheWorldContext))]
-    partial class AroundTheWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20180510102155_Rebuild")]
+    partial class Rebuild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,8 +59,6 @@ namespace AssignmentTwo.Migrations
                     b.Property<bool>("ReturnTrip");
 
                     b.Property<int?>("TicketClassID");
-
-                    b.Property<string>("UserID");
 
                     b.HasKey("BookingID");
 

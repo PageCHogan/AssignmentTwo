@@ -13,7 +13,6 @@ namespace AssignmentTwo.Services
 			Airports result = new Airports();
 
 			//TODO: access database airports table and populate location and code using airport ID provided, return the entire airport to replace the destination / departure of flight before it is saved to DB//
-			//TODO: May not be needed...
 			return result;
 		}
 
