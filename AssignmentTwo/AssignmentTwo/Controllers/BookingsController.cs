@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AssignmentTwo.Models;
 using System.Collections;
+using Microsoft.AspNetCore.Identity;
 
 namespace AssignmentTwo.Controllers
 {
@@ -22,12 +23,18 @@ namespace AssignmentTwo.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-			return RedirectToAction(nameof(Create));
-			//return View(await _context.Bookings.ToListAsync());
-        }
+			string loggedUser = User.Identity.Name;
 
-        // GET: Bookings/Details/5
-        public async Task<IActionResult> Details(int? id)
+			var userBookings = await _context.Bookings.Where(o => o.UserID == loggedUser).ToListAsync();
+
+			if (loggedUser != null && userBookings.Count > 0)
+				return View(userBookings);
+			else
+				return RedirectToAction(nameof(Create));
+		}
+
+		// GET: Bookings/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -101,7 +108,7 @@ namespace AssignmentTwo.Controllers
 				if (bookings.AdditionalLuggage)
 					bookings.Price += (15 * bookings.Passengers);
 
-				
+				bookings.UserID = User.Identity.Name.ToString();
 
 				_context.Add(bookings);
                 await _context.SaveChangesAsync();
