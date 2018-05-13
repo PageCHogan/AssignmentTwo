@@ -56,24 +56,22 @@ namespace AssignmentTwo.Controllers
         {
 			//Dictionary<string, string> flightDetails = new Dictionary<string, string>();
 			//List<Flight> flights = _context.Flight.ToList();
-
 			
-				var airportsViewDataDB = new SelectList(_context.Airports.ToList(), "AirportID", "AirportLocation");
-				ViewData["AirportLocations"] = airportsViewDataDB;
-				
-				//foreach(Flight flight in flights)
-				//{
-				//	flightDetails.Add(flight.FlightID.ToString(), flight.Departure.AirportLocation + " to " + flight.Destination.AirportLocation);
-				//}
-				//SelectList SelectList = new SelectList((IEnumerable)flightDetails, "Key", "Value");
-				//var flightsViewDataDB = new SelectList(flightDetails, "FlightID", "FlightID");
-				//var flightsViewDataDB = new SelectList(flightDetails.ToList());
+			//var airportsViewDataDB = new SelectList(_context.Airports.ToList(), "AirportID", "AirportLocation");
+			//ViewData["AirportLocations"] = airportsViewDataDB;
 
-				//var flightsViewDataDB = new SelectList((IEnumerable)flightDetails, flightDetails.Keys.ToString(), flightDetails.Values.ToString());
-				//ViewData["AvailableFlights"] = flightsViewDataDB.Items;
+			//foreach(Flight flight in flights)
+			//{
+			//	flightDetails.Add(flight.FlightID.ToString(), flight.Departure.AirportLocation + " to " + flight.Destination.AirportLocation);
+			//}
 
-				var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
-				ViewData["AvailableFlights"] = flightsViewDataDB;			return View();
+			var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
+			ViewData["AvailableFlights"] = flightsViewDataDB;
+
+			var ticketClassViewDataDB = new SelectList(_context.TicketClass.ToList(), "TicketClassID", "TicketClassType");
+			ViewData["TicketClasses"] = ticketClassViewDataDB;
+
+			return View();
         }
 
         // POST: Bookings/Create
@@ -81,21 +79,15 @@ namespace AssignmentTwo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
+        public async Task<IActionResult> Create([Bind("BookingID,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Passengers,ReturnTrip,PassportNumber,TicketClass")] Bookings bookings)
         {
-			var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
-			ViewData["AvailableFlights"] = flightsViewDataDB;
-
-			var airportsViewDataDB = new SelectList(_context.Airports.ToList(), "AirportID", "AirportLocation");
-			ViewData["AirportLocations"] = airportsViewDataDB;
-
-
 			if (ModelState.IsValid)
             {
 				List<Airports> airports = await _context.Airports.ToListAsync();
 				List<Flight> flights = await _context.Flight.ToListAsync();
+				List<TicketClass> ticketClasses = await _context.TicketClass.ToListAsync();
 
-				if(bookings.PrimaryFlight.FlightID > 0)
+				if (bookings.PrimaryFlight.FlightID > 0)
 					bookings.PrimaryFlight = _context.Flight.Find(bookings.PrimaryFlight.FlightID);
 
 				if (bookings.ReturnTrip && bookings.ReturnFlight.FlightID > 0)
@@ -108,7 +100,10 @@ namespace AssignmentTwo.Controllers
 				if (bookings.AdditionalLuggage)
 					bookings.Price += (15 * bookings.Passengers);
 
-				bookings.UserID = User.Identity.Name.ToString();
+				bookings.TicketClass = _context.TicketClass.Find(bookings.TicketClass.TicketClassID);
+
+				if(bookings.UserID != null)
+					bookings.UserID = User.Identity.Name.ToString();
 
 				_context.Add(bookings);
                 await _context.SaveChangesAsync();

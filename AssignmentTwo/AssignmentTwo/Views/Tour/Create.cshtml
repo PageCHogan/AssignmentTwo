@@ -1,0 +1,50 @@
+﻿@model AssignmentTwo.Models.Tours
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Tours</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TourName" class="control-label"></label>
+                <input asp-for="TourName" class="form-control" />
+                <span asp-validation-for="TourName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourTime" class="control-label"></label>
+                <input asp-for="TourTime" class="form-control" />
+                <span asp-validation-for="TourTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourPrice" class="control-label"></label>
+                <input asp-for="TourPrice" class="form-control" />
+                <span asp-validation-for="TourPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketsAvailable" class="control-label"></label>
+                <input asp-for="TicketsAvailable" class="form-control" />
+                <span asp-validation-for="TicketsAvailable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDuration" class="control-label"></label>
+                <input asp-for="TourDuration" class="form-control" />
+                <span asp-validation-for="TourDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

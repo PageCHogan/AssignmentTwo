@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="form-group" id="returnFlight">
-                <label asp-for="PrimaryFlight" class="control-label">Return</label>
+                <label asp-for="ReturnFlight" class="control-label">Return</label>
                 @Html.DropDownListFor(m => m.ReturnFlight.FlightID, (IEnumerable<SelectListItem>)ViewData["AvailableFlights"], "")
                 <span asp-validation-for="ReturnFlight" class="text-danger"></span>
             </div>
@@ -60,6 +60,11 @@
                 <label asp-for="PassportNumber" class="control-label"></label>
                 <input asp-for="PassportNumber" class="form-control" />
                 <span asp-validation-for="PassportNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketClass" class="control-label"></label>
+                @Html.DropDownListFor(m => m.TicketClass.TicketClassID,(IEnumerable<SelectListItem>)ViewData["TicketClasses"], "")
+                <span asp-validation-for="TicketClass" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

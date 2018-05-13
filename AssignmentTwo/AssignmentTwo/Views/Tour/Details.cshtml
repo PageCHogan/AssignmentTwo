@@ -1,0 +1,54 @@
+﻿@model AssignmentTwo.Models.Tours
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tours</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TourName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketsAvailable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TicketsAvailable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketsSold)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TicketsSold)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourDuration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourDuration)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TourID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
