@@ -8,7 +8,10 @@ namespace AssignmentTwo.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+		[Display(Name = "Role")]
+		public string UserRole { get; set; }
+
+		[Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -23,5 +26,10 @@ namespace AssignmentTwo.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+		public RegisterViewModel()
+		{
+			UserRole = "Customer";
+		}
     }
 }
