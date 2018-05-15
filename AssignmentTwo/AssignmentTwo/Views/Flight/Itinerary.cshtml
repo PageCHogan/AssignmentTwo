@@ -34,14 +34,6 @@
         <dd>
             @Html.DisplayFor(model => model.DepartureDate)
         </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.FlightCapacity)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.FlightCapacity)
-            </dd>*@
-
         <dt>
             @Html.DisplayNameFor(model => model.SeatsAvailable)
         </dt>
@@ -55,9 +47,9 @@
             $@Html.DisplayFor(model => model.Price)
         </dd>
     </dl>
-    <!--TODO: Point 4 on Task Sheet Remove comment if functionality not added-->
-    <h2>Option to book a ticket!!! Point 4 on Task Sheet</h2>
 </div>
 <div>
     <a asp-action="SearchResults">Back to Search Results</a>
+    <br />
+    <a asp-area="" asp-controller="Bookings" asp-action="Create" class="btn btn-default">Create Booking</a>
 </div>
