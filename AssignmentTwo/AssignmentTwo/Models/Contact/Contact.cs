@@ -8,7 +8,6 @@ namespace AssignmentTwo.Models.Contact
 {
     public class Contact
     {
-		//TODO: Test validation etc...
 		[Key]
 		public int ID { get; set; }
 

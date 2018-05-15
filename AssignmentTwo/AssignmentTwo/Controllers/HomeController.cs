@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AssignmentTwo.Models;
 using AssignmentTwo.Models.Contact;
 using System.Threading;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssignmentTwo.Controllers
 {
@@ -57,5 +58,23 @@ namespace AssignmentTwo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
+
+		////////////////
+
+		public async Task<IActionResult> ViewEnquiries()
+		{
+			//string loggedUser = User.Identity.Name;
+			//List<Contact> contactEnquiries = await _context.Contact.ToListAsync();
+			
+			var contactEnquiries = await _context.Contact.ToListAsync(); //_context.Contact.Where(o => o.UserID == loggedUser).ToListAsync();
+
+			return View(contactEnquiries);
+
+			//if (loggedUser != null && contactEnquiries.Count > 0)
+			//	return View(userBookings);
+			//else
+			//	return RedirectToAction(nameof(Create));
+		}
+
+	}
 }

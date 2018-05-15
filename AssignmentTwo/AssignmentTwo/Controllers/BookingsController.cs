@@ -27,6 +27,11 @@ namespace AssignmentTwo.Controllers
 
 			var userBookings = await _context.Bookings.Where(o => o.UserID == loggedUser).ToListAsync();
 
+			List<Airports> airports = await _context.Airports.ToListAsync();
+			List<Flight> flights = await _context.Flight.ToListAsync();
+			List<TicketClass> ticketClasses = await _context.TicketClass.ToListAsync();
+
+
 			if (loggedUser != null && userBookings.Count > 0)
 				return View(userBookings);
 			else
@@ -41,7 +46,11 @@ namespace AssignmentTwo.Controllers
                 return NotFound();
             }
 
-            var bookings = await _context.Bookings
+			List<Airports> airports = await _context.Airports.ToListAsync();
+			List<Flight> flights = await _context.Flight.ToListAsync();
+			List<TicketClass> ticketClasses = await _context.TicketClass.ToListAsync();
+
+			var bookings = await _context.Bookings
                 .SingleOrDefaultAsync(m => m.BookingID == id);
             if (bookings == null)
             {
@@ -54,17 +63,6 @@ namespace AssignmentTwo.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-			//Dictionary<string, string> flightDetails = new Dictionary<string, string>();
-			//List<Flight> flights = _context.Flight.ToList();
-			
-			//var airportsViewDataDB = new SelectList(_context.Airports.ToList(), "AirportID", "AirportLocation");
-			//ViewData["AirportLocations"] = airportsViewDataDB;
-
-			//foreach(Flight flight in flights)
-			//{
-			//	flightDetails.Add(flight.FlightID.ToString(), flight.Departure.AirportLocation + " to " + flight.Destination.AirportLocation);
-			//}
-
 			var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
 			ViewData["AvailableFlights"] = flightsViewDataDB;
 
@@ -113,56 +111,56 @@ namespace AssignmentTwo.Controllers
 			return View(bookings);
         }
 
-        // GET: Bookings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Bookings/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var bookings = await _context.Bookings.SingleOrDefaultAsync(m => m.BookingID == id);
-            if (bookings == null)
-            {
-                return NotFound();
-            }
-            return View(bookings);
-        }
+        //    var bookings = await _context.Bookings.SingleOrDefaultAsync(m => m.BookingID == id);
+        //    if (bookings == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(bookings);
+        //}
 
-        // POST: Bookings/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingID,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
-        {
-            if (id != bookings.BookingID)
-            {
-                return NotFound();
-            }
+        //// POST: Bookings/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("BookingID,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
+        //{
+        //    if (id != bookings.BookingID)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(bookings);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookingsExists(bookings.BookingID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(bookings);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(bookings);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!BookingsExists(bookings.BookingID))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(bookings);
+        //}
 
         // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)

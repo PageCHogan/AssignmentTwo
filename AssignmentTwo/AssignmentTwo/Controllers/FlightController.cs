@@ -111,60 +111,60 @@ namespace AssignmentTwo.Controllers
             return View(flight);
         }
 
-		//TODO: Edit not part of specs. Remove if cannot neatly change flight departure / destination location.
-		// GET: Flight/Edit/5
-		public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		////TODO: Edit not part of specs. Remove if cannot neatly change flight departure / destination location.
+		//// GET: Flight/Edit/5
+		//public async Task<IActionResult> Edit(int? id)
+  //      {
+  //          if (id == null)
+  //          {
+  //              return NotFound();
+  //          }
 
-			List<Airports> airports = await _context.Airports.ToListAsync();
+		//	List<Airports> airports = await _context.Airports.ToListAsync();
 
-			var flight = await _context.Flight.SingleOrDefaultAsync(m => m.FlightID == id);
-            if (flight == null)
-            {
-                return NotFound();
-            }
-            return View(flight);
-        }
+		//	var flight = await _context.Flight.SingleOrDefaultAsync(m => m.FlightID == id);
+  //          if (flight == null)
+  //          {
+  //              return NotFound();
+  //          }
+  //          return View(flight);
+  //      }
 
 		//TODO: Edit not part of specs. Remove if cannot neatly change flight departure / destination location.
         // POST: Flight/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightID,DepartureDate,FlightCapacity,SeatsAvailable")] Flight flight)
-        {
-            if (id != flight.FlightID)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("FlightID,DepartureDate,FlightCapacity,SeatsAvailable")] Flight flight)
+        //{
+        //    if (id != flight.FlightID)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(flight);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FlightExists(flight.FlightID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(flight);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(flight);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!FlightExists(flight.FlightID))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(flight);
+        //}
 
         // GET: Flight/Delete/5
         public async Task<IActionResult> Delete(int? id)
