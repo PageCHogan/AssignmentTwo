@@ -16,6 +16,7 @@ namespace AssignmentTwo.Models
 		public int TicketsAvailable { get; set; }
 		public int TicketsSold { get; set; }
 		public int TourDuration { get; set; }
+		public string AdditionalInformation { get; set; }
 
 		public Tours()
 		{
@@ -25,6 +26,7 @@ namespace AssignmentTwo.Models
 			TicketsAvailable = 0;
 			TicketsSold = 0;
 			TourDuration = 0;
+			AdditionalInformation = "";
 		}
     }
 }
