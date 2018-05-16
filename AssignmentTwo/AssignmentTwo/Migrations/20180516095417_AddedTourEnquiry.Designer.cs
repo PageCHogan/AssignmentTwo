@@ -11,9 +11,10 @@ using System;
 namespace AssignmentTwo.Migrations
 {
     [DbContext(typeof(AroundTheWorldContext))]
-    partial class AroundTheWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20180516095417_AddedTourEnquiry")]
+    partial class AddedTourEnquiry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +104,6 @@ namespace AssignmentTwo.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("TourName")
                         .IsRequired();
 
                     b.HasKey("ID");

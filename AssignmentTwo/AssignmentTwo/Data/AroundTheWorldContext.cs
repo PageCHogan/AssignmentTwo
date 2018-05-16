@@ -20,5 +20,6 @@ namespace AssignmentTwo.Models
 		public DbSet<AssignmentTwo.Models.Bookings> Bookings { get; set; }
 		public DbSet<AssignmentTwo.Models.TicketClass> TicketClass { get; set; }
 		public DbSet<AssignmentTwo.Models.Tours> Tours { get; set; }
+		public DbSet<AssignmentTwo.Models.Contact.TourEnquiry> TourEnquiry { get; set; }
 	}
 }

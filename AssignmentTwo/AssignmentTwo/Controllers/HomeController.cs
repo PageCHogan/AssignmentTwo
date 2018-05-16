@@ -42,7 +42,6 @@ namespace AssignmentTwo.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Contact(Contact contact)
 		{
-			//TODO: Have Success message appear AND have a blank model displayed, ie. cleared and not containing recently submitted text.
 			if (ModelState.IsValid)
 			{
 				_context.Add(contact);
@@ -59,21 +58,10 @@ namespace AssignmentTwo.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-		////////////////
-
 		public async Task<IActionResult> ViewEnquiries()
 		{
-			//string loggedUser = User.Identity.Name;
-			//List<Contact> contactEnquiries = await _context.Contact.ToListAsync();
-			
-			var contactEnquiries = await _context.Contact.ToListAsync(); //_context.Contact.Where(o => o.UserID == loggedUser).ToListAsync();
-
+			var contactEnquiries = await _context.Contact.ToListAsync();
 			return View(contactEnquiries);
-
-			//if (loggedUser != null && contactEnquiries.Count > 0)
-			//	return View(userBookings);
-			//else
-			//	return RedirectToAction(nameof(Create));
 		}
 
 	}

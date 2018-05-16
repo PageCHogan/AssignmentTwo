@@ -55,6 +55,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TourID">Edit</a> |
     <a asp-action="Index">Back to List</a>
+    <br />
+    <a asp-area="" asp-controller="Tour" asp-action="Enquiry" asp-route-tourName="@Model.TourName" class="btn btn-default">Book Tour!</a>
+    <a asp-area="" asp-controller="Tour" asp-action="ViewEnquiries" class="btn btn-default">View Existing Enquiries</a>
 </div>

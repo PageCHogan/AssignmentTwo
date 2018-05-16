@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AssignmentTwo.Models;
+using AssignmentTwo.Models.Contact;
 
 namespace AssignmentTwo.Controllers
 {
@@ -148,5 +149,40 @@ namespace AssignmentTwo.Controllers
         {
             return _context.Tours.Any(e => e.TourID == id);
         }
-    }
+
+		public IActionResult Enquiry(string tourName)
+		{
+			ViewData["Message"] = "Please leave us a message!";
+			
+			if(tourName.Length == 0)
+			{
+				return View();
+			} else
+			{
+				TourEnquiry model = new TourEnquiry() { TourName = tourName };
+				return View(model);
+			}
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Enquiry(TourEnquiry enquiry)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Add(enquiry);
+				await _context.SaveChangesAsync();
+				ViewData["Message"] = "Submission successful thank you.";
+				return RedirectToAction(nameof(Index));
+			}
+			ViewData["Message"] = "Error! Please fill out all fields.";
+			return View(enquiry);
+		}
+
+		public async Task<IActionResult> ViewEnquiries()
+		{
+			var tourEnquiries = await _context.TourEnquiry.ToListAsync();
+			return View(tourEnquiries);
+		}
+	}
 }
