@@ -63,6 +63,5 @@ namespace AssignmentTwo.Controllers
 			var contactEnquiries = await _context.Contact.ToListAsync();
 			return View(contactEnquiries);
 		}
-
 	}
 }

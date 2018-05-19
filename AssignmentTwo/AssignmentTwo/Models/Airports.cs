@@ -11,7 +11,7 @@ namespace AssignmentTwo.Models
 		[Key]
 		public int AirportID { get; set; }
 		public string AirportLocation { get; set; }
-		public string AirportCode { get; set; } //TODO: not really required. Delete if Unused
+		public string AirportCode { get; set; }
 
 		public Airports()
 		{

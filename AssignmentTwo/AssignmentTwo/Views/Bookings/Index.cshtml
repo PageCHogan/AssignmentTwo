@@ -13,6 +13,15 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.PrimaryFlight.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrimaryFlight.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrimaryFlight.Destination)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PassengersName)
             </th>
             <th>
@@ -42,6 +51,15 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryFlight.Departure.AirportLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryFlight.Destination.AirportLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryFlight.DepartureDate)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PassengersName)
             </td>

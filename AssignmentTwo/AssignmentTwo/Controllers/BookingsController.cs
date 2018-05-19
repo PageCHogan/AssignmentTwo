@@ -20,22 +20,32 @@ namespace AssignmentTwo.Controllers
             _context = context;
         }
 
+		//If logged in user has booked flights able to view history, if no user logged in will see all booked flights. If no flights will default to create booking page.
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
 			string loggedUser = User.Identity.Name;
 
-			var userBookings = await _context.Bookings.Where(o => o.UserID == loggedUser).ToListAsync();
-
 			List<Airports> airports = await _context.Airports.ToListAsync();
 			List<Flight> flights = await _context.Flight.ToListAsync();
 			List<TicketClass> ticketClasses = await _context.TicketClass.ToListAsync();
 
-
-			if (loggedUser != null && userBookings.Count > 0)
-				return View(userBookings);
+			if (loggedUser != null)
+			{
+				var userBookings = await _context.Bookings.Where(o => o.UserID == loggedUser).ToListAsync();
+				if (userBookings.Count > 0)
+					return View(userBookings);
+				else
+					return RedirectToAction(nameof(Create));
+			}
 			else
-				return RedirectToAction(nameof(Create));
+			{
+				var allBookings = await _context.Bookings.ToListAsync();
+				if (allBookings.Count > 0)
+					return View(allBookings);
+				else
+					return RedirectToAction(nameof(Create));
+			}
 		}
 
 		// GET: Bookings/Details/5
@@ -61,7 +71,7 @@ namespace AssignmentTwo.Controllers
         }
 
         // GET: Bookings/Create
-        public IActionResult Create()
+        public IActionResult Create(int flightID)
         {
 			var flightsViewDataDB = new SelectList(_context.Flight.ToList(), "FlightID", "FlightID");
 			ViewData["AvailableFlights"] = flightsViewDataDB;
@@ -69,13 +79,16 @@ namespace AssignmentTwo.Controllers
 			var ticketClassViewDataDB = new SelectList(_context.TicketClass.ToList(), "TicketClassID", "TicketClassType");
 			ViewData["TicketClasses"] = ticketClassViewDataDB;
 
-			return View();
-        }
+			if(flightID == 0)
+				return View();
 
-        // POST: Bookings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+			return View(new Bookings() { PrimaryFlight = new Flight() { FlightID = flightID } });
+		}
+
+		// POST: Bookings/Create
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingID,PrimaryFlight,ReturnFlight,PassengersName,EmailAddress,AdditionalLuggage,Passengers,ReturnTrip,PassportNumber,TicketClass")] Bookings bookings)
         {
@@ -100,68 +113,17 @@ namespace AssignmentTwo.Controllers
 
 				bookings.TicketClass = _context.TicketClass.Find(bookings.TicketClass.TicketClassID);
 
-				if(bookings.UserID != null)
+				string user = User.Identity.Name;
+				if (user != null)
 					bookings.UserID = User.Identity.Name.ToString();
 
 				_context.Add(bookings);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-			//ViewBag.errormessage = "no bueno";
 			return View(bookings);
         }
-
-        //// GET: Bookings/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var bookings = await _context.Bookings.SingleOrDefaultAsync(m => m.BookingID == id);
-        //    if (bookings == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(bookings);
-        //}
-
-        //// POST: Bookings/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("BookingID,PassengersName,EmailAddress,AdditionalLuggage,Price,Passengers,ReturnTrip,PassportNumber")] Bookings bookings)
-        //{
-        //    if (id != bookings.BookingID)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(bookings);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!BookingsExists(bookings.BookingID))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(bookings);
-        //}
-
+		
         // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

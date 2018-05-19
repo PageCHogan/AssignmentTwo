@@ -51,5 +51,5 @@
 <div>
     <a asp-action="SearchResults">Back to Search Results</a>
     <br />
-    <a asp-area="" asp-controller="Bookings" asp-action="Create" class="btn btn-default">Create Booking</a>
+    <a asp-area="" asp-controller="Bookings" asp-action="Create" asp-route-flightID="@Model.FlightID" class="btn btn-default">Book Flight!</a>
 </div>
