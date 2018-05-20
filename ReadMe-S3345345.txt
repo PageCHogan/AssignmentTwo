@@ -1,1 +1,22 @@
+Much of the functionality is available however unable to complete full functionality.
+
+Test Users create more as desired:
+	User -	a@b.com
+	Pass -  Abc123!
+
+	User -	Email@address.com
+	Pass -  Password1!
+
+Flight booking form not implemented & Flights must be booked using flight ID's
+Flight search results return all flights, not refined by search data.
+
+Bookings - If logged in user has booked flights able to view history
+	If no user logged in will see all booked flights.
+	If no flights, will default to create booking page.
+
+Tours - Available tours can be booked via the details drilldown
+
 All images sourced from: https://www.freeimages.com/  on: 06/05/2018
+
+Thanks
+
